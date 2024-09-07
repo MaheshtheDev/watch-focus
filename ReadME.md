@@ -2,6 +2,13 @@
 
 Watch Focus is a Chrome extension designed to enhance your YouTube viewing experience by allowing you to focus on the video you're watching and take notes simultaneously.
 
+### DEMO:
+
+
+https://github.com/user-attachments/assets/64c978f8-e817-4090-9916-5d30f7687dec
+
+
+
 ## Features
 
 1. **Video Focus Mode**: Removes distractions from the YouTube interface, allowing you to concentrate on the video content.
