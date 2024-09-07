@@ -88,10 +88,17 @@ function addFocusButton() {
     };
 
     endElement.appendChild(icon);
-
-    // Add fullscreen change event listener
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
   }
+
+  addEventListeners();
+}
+
+function addEventListeners() {
+  // Add fullscreen change event listener
+  document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+  // Add keyboard event listener
+  document.addEventListener("keydown", handleKeyPress);
 }
 
 function handleFullscreenChange() {
@@ -106,6 +113,14 @@ function handleFullscreenChange() {
     // Exited fullscreen mode
     if (focusIcon) focusIcon.style.display = "block";
     if (notesContainer) notesContainer.style.display = "block";
+  }
+}
+
+function handleKeyPress(event) {
+  // if the pressed key is 'W' or 'w' and not in fullscreen mode
+  if (event.key.toLowerCase() === "w" && !document.fullscreenElement) {
+    event.preventDefault();
+    applyFocusMode();
   }
 }
 
