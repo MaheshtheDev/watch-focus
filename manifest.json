@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "Watch Focus",
+  "version": "1.2",
+  "description": "Focus on the video you are watching",
+  "action": {
+    "default_popup": "html/popup.html",
+    "default_icon": {
+      "16": "icon.png"
+    }
+  },
+  "permissions": ["tabs", "scripting"],
+  "host_permissions": ["https://www.youtube.com/*"],
+  "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": ["https://www.youtube.com/*"],
+      "all_frames": true
+    }
+  ],
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "light-icon.png",
+        "/images/active-focus.png",
+        "/html/notes.html",
+        "/scripts/froala_editor.pkgd.min.js",
+        "https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest",
+        "https://cdn.jsdelivr.net/npm/@editorjs/header@latest",
+        "https://cdn.jsdelivr.net/npm/@editorjs/list@latest"
+      ],
+      "matches": ["https://www.youtube.com/*"]
+    }
+  ]
+}
