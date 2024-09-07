@@ -1,7 +1,5 @@
 function applyFocusMode() {
-  const belowVideo = document.querySelectorAll(
-    "#below, #secondary-inner"
-  );
+  const belowVideo = document.querySelectorAll("#below, #secondary-inner");
   const focusIcon = document.getElementById("mtd-focus-icon");
   const notesContainer = document.getElementById("mtd-notes-container");
 
@@ -37,10 +35,9 @@ function applyFocusMode() {
     // check youtube theme and set background color
     iframeContainer.style.backgroundColor =
       document.documentElement.style.getPropertyValue(
-        '--yt-spec-text-primary-inverse'
+        "--yt-spec-text-primary-inverse"
       );
     // how to set textarea background color
-    
 
     // Create the iframe element
     const iframe = document.createElement("iframe");
@@ -91,6 +88,24 @@ function addFocusButton() {
     };
 
     endElement.appendChild(icon);
+
+    // Add fullscreen change event listener
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+  }
+}
+
+function handleFullscreenChange() {
+  const focusIcon = document.getElementById("mtd-focus-icon");
+  const notesContainer = document.getElementById("mtd-notes-container");
+
+  if (document.fullscreenElement) {
+    // Entered fullscreen mode
+    if (focusIcon) focusIcon.style.display = "none";
+    if (notesContainer) notesContainer.style.display = "none";
+  } else {
+    // Exited fullscreen mode
+    if (focusIcon) focusIcon.style.display = "block";
+    if (notesContainer) notesContainer.style.display = "block";
   }
 }
 
