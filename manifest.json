@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Watch Focus",
-  "version": "1.2",
+  "version": "1.4",
   "description": "Focus on the video you are watching",
   "action": {
     "default_popup": "html/popup.html",
@@ -26,11 +26,7 @@
       "resources": [
         "light-icon.png",
         "/images/active-focus.png",
-        "/html/notes.html",
-        "/scripts/froala_editor.pkgd.min.js",
-        "https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest",
-        "https://cdn.jsdelivr.net/npm/@editorjs/header@latest",
-        "https://cdn.jsdelivr.net/npm/@editorjs/list@latest"
+        "/html/notes.html"
       ],
       "matches": ["https://www.youtube.com/*"]
     }

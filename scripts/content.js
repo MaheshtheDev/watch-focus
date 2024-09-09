@@ -37,7 +37,6 @@ function applyFocusMode() {
       document.documentElement.style.getPropertyValue(
         "--yt-spec-text-primary-inverse"
       );
-    // how to set textarea background color
 
     // Create the iframe element
     const iframe = document.createElement("iframe");
@@ -67,6 +66,7 @@ function addFocusButton() {
   if (!focusIcon && endElement) {
     const icon = document.createElement("img");
     icon.id = "mtd-focus-icon";
+    icon.title = "Watch Focus (W)";
     icon.style.width = "20px";
     icon.style.height = "20px";
     // right align
@@ -88,9 +88,8 @@ function addFocusButton() {
     };
 
     endElement.appendChild(icon);
+    addEventListeners();
   }
-
-  addEventListeners();
 }
 
 function addEventListeners() {
