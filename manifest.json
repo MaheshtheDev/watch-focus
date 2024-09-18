@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Watch Focus",
-  "version": "1.4",
+  "version": "1.5",
   "description": "Focus on the video you are watching",
   "action": {
     "default_popup": "html/popup.html",
