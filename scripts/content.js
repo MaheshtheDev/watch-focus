@@ -116,9 +116,12 @@ function handleFullscreenChange() {
 }
 
 function handleKeyPress(event) {
-  // if the pressed key is 'W' or 'w' and not in fullscreen mode
-  if (event.key.toLowerCase() === "w" && !document.fullscreenElement) {
-    event.preventDefault();
+  const activeElement = document.activeElement;
+
+  const isTyping = activeElement.tagName === 'INPUT' ||
+                   activeElement.isContentEditable;
+
+  if (event.key.toLowerCase() === 'w' && !document.fullscreenElement && !isTyping) {
     applyFocusMode();
   }
 }
