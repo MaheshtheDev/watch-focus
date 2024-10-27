@@ -2,11 +2,17 @@ function applyFocusMode() {
   const belowVideo = document.querySelectorAll("#below, #secondary-inner");
   const focusIcon = document.getElementById("mtd-focus-icon");
   const notesContainer = document.getElementById("mtd-notes-container");
+  const topNavBar = document.querySelector(
+    "#container.style-scope.ytd-masthead"
+  );
 
   // toggle focus mode icon
   focusIcon.src = focusIcon.src.includes("light-icon")
     ? chrome.runtime.getURL("/images/active-focus.png")
     : chrome.runtime.getURL("light-icon.png");
+
+  topNavBar.style.display =
+    topNavBar.style.display == "none" ? "" : "none";
 
   for (let i = 0; i < belowVideo.length; i++) {
     // hide the belowVideo
@@ -118,10 +124,14 @@ function handleFullscreenChange() {
 function handleKeyPress(event) {
   const activeElement = document.activeElement;
 
-  const isTyping = activeElement.tagName === 'INPUT' ||
-                   activeElement.isContentEditable;
+  const isTyping =
+    activeElement.tagName === "INPUT" || activeElement.isContentEditable;
 
-  if (event.key.toLowerCase() === 'w' && !document.fullscreenElement && !isTyping) {
+  if (
+    event.key.toLowerCase() === "w" &&
+    !document.fullscreenElement &&
+    !isTyping
+  ) {
     applyFocusMode();
   }
 }
