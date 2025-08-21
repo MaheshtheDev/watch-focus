@@ -9,7 +9,7 @@
       "16": "icon.png"
     }
   },
-  "permissions": ["tabs", "scripting"],
+  "permissions": ["tabs", "scripting", "storage"],
   "host_permissions": ["https://www.youtube.com/*"],
   "content_scripts": [
     {
@@ -26,7 +26,8 @@
       "resources": [
         "light-icon.png",
         "/images/active-focus.png",
-        "/html/notes.html"
+        "/html/notes.html",
+        "/html/notes.js"
       ],
       "matches": ["https://www.youtube.com/*"]
     }
