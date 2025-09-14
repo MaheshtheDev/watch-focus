@@ -124,6 +124,23 @@
 	}
 
 	function restoreFromHistoryById(timestampId, opts = {}) {
+		// Auto-save current note to history before restoring
+		const currentContent = (textarea.value || '').trim();
+		if (currentContent) {
+			getStorage([historyKey], (items) => {
+				let list = [];
+				try {
+					list = typeof items[historyKey] === 'string' ? JSON.parse(items[historyKey] || '[]') : (items[historyKey] || []);
+				} catch (e) { list = []; }
+				const norm = currentContent;
+				const existingIndex = list.findIndex(it => (it && (it.content || '').trim()) === norm);
+				if (existingIndex === -1) {
+					const now = Date.now();
+					list.push({ content: currentContent, timestamp: now });
+					setStorage({ [historyKey]: list });
+				}
+			});
+		}
 		getStorage([historyKey], (items) => {
 			let list = [];
 			try {
