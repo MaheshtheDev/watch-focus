@@ -32,7 +32,7 @@
 	function setStorage(obj) {
 		try {
 			Object.keys(obj).forEach((k) => localStorage.setItem(k, typeof obj[k] === 'string' ? obj[k] : JSON.stringify(obj[k])));
-		} catch (e) {}
+		} catch (e) { console.error('setStorage error:', e); alert('Error saving note. Please check your browser storage settings.'); }
 		if (window.chrome && chrome.storage && chrome.storage.local) {
 			chrome.storage.local.set(obj, () => {});
 		}
@@ -44,7 +44,7 @@
 			let text = '';
 			try {
 				text = typeof val === 'string' ? val : (val || '');
-			} catch (e) {}
+			} catch (e) { console.error('loadCurrent error:', e); alert('Error loading current note.'); }
 			textarea.value = text || '';
 		});
 	}
@@ -54,7 +54,7 @@
 			let list = [];
 			try {
 				list = typeof items[historyKey] === 'string' ? JSON.parse(items[historyKey] || '[]') : (items[historyKey] || []);
-			} catch (e) { list = []; }
+			} catch (e) { list = []; console.error('loadHistory parse error:', e); }
 			renderHistory(list);
 		});
 	}
@@ -74,16 +74,17 @@
 				const year = date.getFullYear();
 				const timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 				const ts = `${day}/${month}/${year} ${timeString}`;
-				const preview = (item.content || '').replace(/\n/g, ' ').slice(0, 80);
+				// Only show the first line of the note as preview
+				const preview = (item.content || '').split('\n')[0];
 				return `<div data-idx="${list.length - 1 - idx}" data-id="${item.timestamp}" style="margin-bottom:8px; padding-bottom:6px; border-bottom: 1px solid rgba(0,0,0,0.1);">
 				  <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
 				    <div class="history-item-content" style="cursor:pointer;">
-				      <div><strong>${ts}</strong></div>
-				      <div style=\"white-space:pre-wrap;\">${escapeHtml(preview)}</div>
+				      <div style="font-weight:bold;">${escapeHtml(preview)}</div>
+				      <div style="font-weight:normal;">${ts}</div>
 				    </div>
-				    <button class="history-delete" title="Delete" aria-label="Delete" style="position:relative;width:16px;height:16px;background:none;border:none;color:#b00;cursor:pointer;padding:0;">
-				      <span style=\"position:absolute;left:0;right:0;top:7px;height:2px;background:currentColor;transform:rotate(45deg);transform-origin:center;\"></span>
-				      <span style=\"position:absolute;left:0;right:0;top:7px;height:2px;background:currentColor;transform:rotate(-45deg);transform-origin:center;\"></span>
+				    <button class="history-delete" title="Delete" aria-label="Delete" style="position:relative;width:16px;height:16px;min-width:16px;min-height:16px;display:flex;align-items:center;justify-content:center;background:none;border:none;color:#b00;cursor:pointer;padding:0;flex-shrink:0;">
+				      <span style="position:absolute;left:0;right:0;top:7px;height:2px;width:14px;margin:auto;background:currentColor;transform:rotate(45deg);transform-origin:center;"></span>
+				      <span style="position:absolute;left:0;right:0;top:7px;height:2px;width:14px;margin:auto;background:currentColor;transform:rotate(-45deg);transform-origin:center;"></span>
 				    </button>
 				  </div>
 				</div>`;
@@ -97,7 +98,7 @@
 			const noteId = Number(row.getAttribute('data-id'));
 			if (contentArea) {
 				contentArea.addEventListener('click', () => {
-					try { highlightHistoryRow(noteId); } catch (e) {}
+					try { highlightHistoryRow(noteId); } catch (e) { console.error('highlightHistoryRow error:', e); }
 					restoreFromHistoryById(noteId, { closeAfter: true });
 				});
 			}
@@ -117,7 +118,7 @@
 		row.style.transition = row.style.transition ? row.style.transition : 'background-color 300ms ease';
 		row.style.backgroundColor = 'rgba(222, 184, 135, 0.25)'; // burlywood tint
 		// smooth scroll into view within dropdown
-		try { row.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) {}
+		try { row.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) { console.error('scrollIntoView error:', e); }
 		setTimeout(() => {
 			row.style.backgroundColor = '';
 		}, 900);
@@ -131,7 +132,7 @@
 				let list = [];
 				try {
 					list = typeof items[historyKey] === 'string' ? JSON.parse(items[historyKey] || '[]') : (items[historyKey] || []);
-				} catch (e) { list = []; }
+				} catch (e) { list = []; console.error('restoreFromHistoryById parse error:', e); alert('Error restoring note from history.'); }
 				const norm = currentContent;
 				const existingIndex = list.findIndex(it => (it && (it.content || '').trim()) === norm);
 				if (existingIndex === -1) {
@@ -145,7 +146,7 @@
 			let list = [];
 			try {
 				list = typeof items[historyKey] === 'string' ? JSON.parse(items[historyKey] || '[]') : (items[historyKey] || []);
-			} catch (e) { list = []; }
+			} catch (e) { list = []; console.error('restoreFromHistoryById parse error:', e); alert('Error restoring note from history.'); }
 			const note = list.find(n => n && n.timestamp === timestampId);
 			if (note) {
 				textarea.value = note.content || '';
@@ -162,7 +163,7 @@
 			let list = [];
 			try {
 				list = typeof items[historyKey] === 'string' ? JSON.parse(items[historyKey] || '[]') : (items[historyKey] || []);
-			} catch (e) { list = []; }
+			} catch (e) { list = []; console.error('deleteFromHistory parse error:', e); alert('Error deleting note from history.'); }
 			if (originalIndex >= 0 && originalIndex < list.length) {
 				list.splice(originalIndex, 1);
 				setStorage({ [historyKey]: list });
@@ -187,7 +188,7 @@
 	}
 
 	function persistImmediate(value) {
-		try { localStorage.setItem(storageKey, value); } catch (e) {}
+		try { localStorage.setItem(storageKey, value); } catch (e) { console.error('persistImmediate localStorage error:', e); alert('Error saving note.'); }
 		if (window.chrome && chrome.storage && chrome.storage.local) {
 			chrome.storage.local.set({ [storageKey]: value }, () => {});
 		}
@@ -210,7 +211,7 @@
 			let list = [];
 			try {
 				list = typeof items[historyKey] === 'string' ? JSON.parse(items[historyKey] || '[]') : (items[historyKey] || []);
-			} catch (e) { list = []; }
+			} catch (e) { list = []; console.error('addBtn click parse error:', e); alert('Error saving note.'); }
 			const now = Date.now();
 			const isEditing = currentEditingId != null;
 			const unchanged = isEditing && (content === (currentEditingOriginalContent || '').trim());
@@ -297,7 +298,7 @@
 		let within = false;
 		try {
 			within = (e.target === historyToggleBtn) || (historyToggleBtn && historyToggleBtn.contains(e.target)) || (historyDropdown && historyDropdown.contains(e.target));
-		} catch (err) { within = false; }
+		} catch (err) { within = false; console.error('mousedown event error:', err); }
 		if (!within) closeDropdown();
 	});
 
