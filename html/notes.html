@@ -4,13 +4,13 @@
     <title>Add Notes</title>
   </head>
   <body style="margin: 0; height: 100%; display: flex; flex-direction: column; box-sizing: border-box;">
-    <div style="position: relative; display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0; width: 100%; z-index: 1002; box-sizing: border-box;">
-      <button id="add-note-btn" type="button" title="New note" style="background: none; border: none; color: burlywood; font-weight: bold; cursor: pointer; line-height: 1; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border-radius: 6px; transition: all 0.3s ease; font-size: 20px; box-shadow: 0 1px 3px rgba(222, 184, 135, 0.1);">+</button>
-      <h2 style="color: burlywood; margin: 0; font-size: 20px; font-weight: bold; text-align: center; flex: 0 0 auto; transition: all 0.3s ease;">Add Notes</h2>
-      <button id="history-toggle-btn" type="button" title="History" aria-label="History" style="background: none; border: none; color: burlywood; font-weight: bold; cursor: pointer; line-height: 1; width: 32px; height: 32px; display: inline-flex; flex-direction: column; justify-content: center; align-items: center; gap: 3px; padding: 0; border-radius: 6px; transition: all 0.3s ease; box-shadow: 0 1px 3px rgba(222, 184, 135, 0.1);">
-        <span style="display:block;width:22px;height:2px;background:currentColor;transition: all 0.3s ease;"></span>
-        <span style="display:block;width:22px;height:2px;background:currentColor;transition: all 0.3s ease;"></span>
-        <span style="display:block;width:22px;height:2px;background:currentColor;transition: all 0.3s ease;"></span>
+    <div style="position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 12px 0; width: 100%; z-index: 1002; box-sizing: border-box;">
+      <button id="add-note-btn" type="button" title="New note" style="background: none; border: none; color: burlywood; font-weight: bold; cursor: pointer; line-height: 1; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border-radius: 4px; transition: all 0.3s ease; font-size: 16px;">+</button>
+      <h2 style="color: burlywood; margin: 0; font-size: 16px; font-weight: bold; text-align: center; flex: 0 0 auto; transition: all 0.3s ease;">Add Notes</h2>
+      <button id="history-toggle-btn" type="button" title="History" aria-label="History" style="background: none; border: none; color: burlywood; font-weight: bold; cursor: pointer; line-height: 1; width: 24px; height: 24px; display: inline-flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px; padding: 0; border-radius: 4px; transition: all 0.3s ease;">
+        <span style="display:block;width:16px;height:1px;background:currentColor;transition: all 0.3s ease;"></span>
+        <span style="display:block;width:16px;height:1px;background:currentColor;transition: all 0.3s ease;"></span>
+        <span style="display:block;width:16px;height:1px;background:currentColor;transition: all 0.3s ease;"></span>
       </button>
       <div id="history-dropdown" style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 6px; width: 320px; max-height: 260px; overflow: auto; background-color: rgb(227 225 225 / 95%); color: black; padding: 6px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1003; visibility: hidden; opacity: 0; transform: translateX(-50%) translateY(6px); transition: opacity 200ms ease-in-out, transform 200ms ease-in-out; will-change: opacity, transform;">
         <div id="history-list" style="font-size: 12px;"></div>

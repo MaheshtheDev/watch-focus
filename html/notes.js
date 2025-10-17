@@ -1,4 +1,3 @@
-// minimal history-enabled notes manager
 (function () {
 	const textarea = document.getElementById('note');
 	const addBtn = document.getElementById('add-note-btn');

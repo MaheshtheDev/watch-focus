@@ -1,6 +1,4 @@
 function applyFocusMode() {
-  console.log('applyFocusMode called'); // Debug log
-  
   try {
     const belowVideo = document.querySelectorAll("#below, #secondary-inner");
     const focusIcon = document.getElementById("mtd-focus-icon");
@@ -10,11 +8,8 @@ function applyFocusMode() {
     );
 
     if (!focusIcon) {
-      console.error('Focus icon not found');
       return;
     }
-
-    console.log('Current focus icon src:', focusIcon.src); // Debug log
 
     // toggle focus mode icon
     const isLightIcon = focusIcon.src.includes("light-icon");
@@ -22,13 +17,10 @@ function applyFocusMode() {
       ? chrome.runtime.getURL("/images/active-focus.png")
       : chrome.runtime.getURL("light-icon.png");
 
-    console.log('Focus icon toggled to:', isLightIcon ? 'active' : 'light'); // Debug log
-
     // Toggle top navigation bar
     if (topNavBar) {
       topNavBar.style.display =
         topNavBar.style.display == "none" ? "" : "none";
-      console.log('Top nav bar toggled');
     }
 
     // Toggle below video elements
@@ -51,8 +43,6 @@ function applyFocusMode() {
       }
     }
 
-    console.log('Below video elements toggled, count:', belowVideo.length);
-
     // helper to update notes container height to match video height
     function updateNotesHeight() {
       const container = document.getElementById("mtd-notes-container");
@@ -72,7 +62,6 @@ function applyFocusMode() {
       }
       if (height > 0) {
         container.style.height = height + "px";
-        console.log('Notes height updated to:', height);
       }
     }
 
@@ -107,9 +96,6 @@ function applyFocusMode() {
       );
       if (secondaryDiv) {
         secondaryDiv.appendChild(iframeContainer);
-        console.log('Notes container added');
-      } else {
-        console.error('Secondary div not found for notes container');
       }
 
       // initial sizing and on resize
@@ -122,10 +108,7 @@ function applyFocusMode() {
       if (willShow) {
         updateNotesHeight();
       }
-      console.log('Notes container toggled, will show:', willShow);
     }
-    
-    console.log('applyFocusMode completed successfully');
   } catch (error) {
     console.error('Error in applyFocusMode:', error);
   }
@@ -164,7 +147,6 @@ function addFocusButton() {
     icon.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      console.log('Watch Focus button clicked'); // Debug log
       applyFocusMode();
     });
     
@@ -176,9 +158,6 @@ function addFocusButton() {
 
     endElement.appendChild(icon);
     addEventListeners();
-    
-    // Debug: log when button is added
-    console.log('Watch Focus button added successfully');
   }
 }
 
